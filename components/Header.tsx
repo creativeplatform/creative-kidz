@@ -3,7 +3,7 @@ import { useDAOAddresses, useTreasuryBalance } from "hooks";
 import Link from "next/link";
 import { ETHERSCAN_BASEURL } from "constants/urls";
 import CustomConnectButton from "./CustomConnectButton";
-import { BASED_AND_YELLOW_MULTISIG, TOKEN_CONTRACT } from "constants/addresses";
+import { CRTV_AND_KIDZ_MULTISIG, TOKEN_CONTRACT } from "constants/addresses";
 import Button from "./Button";
 import { useBalance } from "wagmi";
 import { formatNumber } from "@/utils/formatNumber";
@@ -17,7 +17,7 @@ export default function Header() {
         treasuryContract: addresses?.treasury,
     });
 
-    const { data: multisigBalanceData } = useBalance({ address: BASED_AND_YELLOW_MULTISIG });
+    const { data: multisigBalanceData } = useBalance({ address: CRTV_AND_KIDZ_MULTISIG });
 
     return (
         <div className="flex items-center justify-between w-full px-4 md:px-10 py-2 h-[80px] gap-2">

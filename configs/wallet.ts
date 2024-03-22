@@ -1,32 +1,27 @@
 import "@rainbow-me/rainbowkit/styles.css";
 import { getDefaultWallets } from "@rainbow-me/rainbowkit";
-import { mainnet, goerli, configureChains, createClient } from "wagmi";
+import { mainnet, configureChains, createClient } from "wagmi";
 import { jsonRpcProvider } from "wagmi/providers/jsonRpc";
 import { publicProvider } from "wagmi/providers/public";
-import { zoraTestnet, zora, base, baseGoerli } from "@wagmi/chains";
-
+import { zoraTestnet, zora, optimism } from "@wagmi/chains";
 import { createPublicClient, http } from "viem";
 import { mainnet as mainnetViem } from "viem/chains";
 
 const selectedChain = {
     "1": mainnet,
-    "5": goerli,
     "999": zoraTestnet,
     "7777777": zora,
-    "8453": base,
-    "84531": baseGoerli,
+    "10": optimism,
 }[process.env.NEXT_PUBLIC_TOKEN_NETWORK ?? "1"]!;
 
 export const RPC_URL = {
-    "1": `https://eth-mainnet.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_KEY}`,
-    "5": `https://eth-goerli.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_KEY}`,
+    "1": `https://eth-mainnet.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_MAINNET_ALCHEMY_KEY}`,
     "999": "https://testnet.rpc.zora.energy",
     "7777777": "https://rpc.zora.energy",
-    "8453": `https://base-mainnet.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_KEY}`,
-    "84531": `https://base-goerli.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_KEY}`,
+    "10": `https://optimism-mainnet.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_OPTIMISM_ALCHEMY_KEY}`,
 }[process.env.NEXT_PUBLIC_TOKEN_NETWORK ?? "1"]!;
 
-export type ChainId = "1" | "5" | "999" | "7777777" | "8453" | "84531";
+export type ChainId = "1"| "999" | "7777777" | "10";
 
 const { chains, provider } = configureChains(
     [selectedChain],
@@ -42,9 +37,9 @@ const { chains, provider } = configureChains(
 );
 
 const { connectors } = getDefaultWallets({
-    appName: "Yellow Collective",
+    appName: "Creative Kidz",
     chains,
-    projectId: "afb449b5b1ea52d11db1ec72bc452500",
+    projectId: "c59aed3de5fcc3ec19ecba08a0c03c8f",
 });
 
 const wagmiClient = createClient({
@@ -55,7 +50,7 @@ const wagmiClient = createClient({
 
 const viemMainnetClient = createPublicClient({
     chain: mainnetViem,
-    transport: http(`https://eth-mainnet.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_KEY}`),
+    transport: http(`https://eth-mainnet.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_MAINNET_ALCHEMY_KEY}`),
 });
 
 export { wagmiClient, chains, viemMainnetClient };
